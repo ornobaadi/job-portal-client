@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { CiLocationOn } from "react-icons/ci";
 import { FaDollarSign } from "react-icons/fa";
 import { HiLocationMarker } from "react-icons/hi";
 import { Link } from "react-router-dom";
