@@ -1,9 +1,10 @@
 import { useLoaderData } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const ViewApplications = () => {
     const applications = useLoaderData();
 
-    const handleStatusUpdate = (e, id) =>{
+    const handleStatusUpdate = (e, id) => {
         console.log(e.target.value, id)
         const data = {
             status: e.target.value
@@ -15,11 +16,18 @@ const ViewApplications = () => {
             },
             body: JSON.stringify(data)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data);
-        }) 
-        
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount)
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Status has been Updated",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+            })
+
     }
 
     return (
@@ -44,8 +52,8 @@ const ViewApplications = () => {
                                 <td>Quality Control Specialist</td>
                                 <td>
                                     <select
-                                    onChange={(e) => handleStatusUpdate(e, app._id)}
-                                    defaultValue={app.status || 'Change Status'} className="select select-bordered select-xs w-full max-w-xs">
+                                        onChange={(e) => handleStatusUpdate(e, app._id)}
+                                        defaultValue={app.status || 'Change Status'} className="select select-bordered select-xs w-full max-w-xs">
                                         <option disabled>Change Status</option>
                                         <option>Under Review</option>
                                         <option>Set Interview</option>
